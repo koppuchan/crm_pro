@@ -1,20 +1,8 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import { clearSession, getUser } from "@/lib/auth";
+import { ProfileMenu } from "./ProfileMenu";
 
 export function TopNav() {
-  const router = useRouter();
-  const user = getUser();
-  const displayName = user?.display_name ?? user?.email ?? "";
-  const initial = displayName.charAt(0).toUpperCase();
-
-  function handleSignOut() {
-    clearSession();
-    router.push("/login");
-    router.refresh();
-  }
-
   return (
     <header className="flex h-16 shrink-0 items-center justify-between border-b border-gray-700 bg-gray-900 px-6">
       <div className="relative mx-auto w-full max-w-xl">
@@ -43,6 +31,16 @@ export function TopNav() {
 
         <button
           type="button"
+          className="rounded-lg p-2 text-gray-400 hover:bg-gray-800 hover:text-gray-200"
+          aria-label="メッセージ"
+        >
+          <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+          </svg>
+        </button>
+
+        <button
+          type="button"
           className="relative rounded-lg p-2 text-gray-400 hover:bg-gray-800 hover:text-gray-200"
           aria-label="通知"
         >
@@ -52,21 +50,7 @@ export function TopNav() {
           <span className="absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-red-500" />
         </button>
 
-        <div className="relative">
-          <button
-            type="button"
-            onClick={handleSignOut}
-            className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-full bg-purple-600 text-sm font-medium text-white ring-2 ring-gray-700"
-            title="ログアウト"
-          >
-            {user?.avatar ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={user.avatar} alt={displayName} className="h-full w-full object-cover" />
-            ) : (
-              initial
-            )}
-          </button>
-        </div>
+        <ProfileMenu />
       </div>
     </header>
   );
