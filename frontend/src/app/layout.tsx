@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "CRM Pro",
-  description: "Customer Relationship Management",
+  description: "顧客関係管理システム",
 };
 
 export default function RootLayout({
@@ -24,12 +24,10 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="ja"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-zinc-50 text-zinc-900">
-        {children}
-      </body>
+      <body className="h-full min-h-full flex flex-col">{children}</body>
     </html>
   );
 }
